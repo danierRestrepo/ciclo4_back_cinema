@@ -5,9 +5,10 @@
 package com.app.movie.interfaces;
 
 import com.app.movie.entities.Category;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.CrudRepository;
 
 
-public interface ICategoryRepository extends CrudRepository<Category, String> {
+public interface ICategoryRepository extends MongoRepository<Category, String> {
     
 }

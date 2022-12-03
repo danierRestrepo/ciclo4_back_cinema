@@ -5,9 +5,15 @@
 package com.app.movie.interfaces;
 
 import com.app.movie.entities.Client;
+import com.app.movie.entities.Movie;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
 
-public interface IClientRepository extends CrudRepository<Client, String> {
-    
+
+public interface IClientRepository extends MongoRepository<Client, String> {
+    @Query(value= "{name : ?0}") // SQL Equivalent : SELECT * FROM Movie select * from Movie where name=?
+    List<Client> getClientsByName(String name);
 }

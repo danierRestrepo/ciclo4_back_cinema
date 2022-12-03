@@ -4,12 +4,14 @@
  */
 package com.app.movie.controller;
 
+import com.app.movie.dto.ResponseDto;
 import com.app.movie.entities.Client;
 import com.app.movie.entities.Movie;
 import com.app.movie.service.ClientService;
 import com.app.movie.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/movie")
 @CrossOrigin(origins = "*")
 public class MovieController {
-
     @Autowired
     MovieService service;
 
@@ -27,9 +28,15 @@ public class MovieController {
     }
 
     @PostMapping("")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Movie create(@RequestBody Movie request) {
-        return service.create(request);
+    public ResponseEntity<ResponseDto> create(@RequestBody Movie request) {
+        ResponseDto responseDto = service.create(request);
+        ResponseEntity<ResponseDto> response = new ResponseEntity<>(responseDto,HttpStatus.CONFLICT);
+
+        if(responseDto.status.booleanValue()==true){
+            response = new ResponseEntity<>(responseDto,HttpStatus.CREATED);
+        }
+
+        return response;
     }
 
     @PutMapping("")
@@ -43,5 +50,4 @@ public class MovieController {
     public void delete(@PathVariable("id") String id) {
         service.delete(id);
     }
-
 }

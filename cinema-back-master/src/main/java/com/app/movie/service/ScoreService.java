@@ -17,7 +17,6 @@ import java.util.Optional;
 
 @Service
 public class ScoreService {
-
     @Autowired
     ScoreRepository repository;
 
