@@ -14,6 +14,9 @@ import java.util.List;
 
 
 public interface IScoreRepository extends MongoRepository<Score, String> {
-    @Query(value= "{name : ?0}") // SQL Equivalent : SELECT * FROM Movie select * from Movie where name=?
-    List<Score> getMoviesByName(String name);
+    @Query(value= "{movies.name : ?0, clients.email : ?1}") // SQL Equivalent : SELECT * FROM Movie select * from Movie where name=?
+    List<Score> getScoresByMoviesAndClient(String name, String email);// puede ser mas preciso con id
+
+    //@Query(value= "{clients.name : ?0}") // SQL Equivalent : SELECT * FROM Movie select * from Movie where name=?
+   // List<Score> getScoreByClients(String name);
 }

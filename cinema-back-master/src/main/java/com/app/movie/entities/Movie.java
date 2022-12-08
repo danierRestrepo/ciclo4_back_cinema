@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.List;
 
 
 @Document("movie")
@@ -30,6 +31,5 @@ public class Movie implements Serializable {
     private String genre;
     private String year;
     private String director;
-    
     
 }
