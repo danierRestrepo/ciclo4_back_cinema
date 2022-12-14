@@ -5,20 +5,21 @@
 package com.app.movie.controller;
 
 import com.app.movie.dto.ResponseDto;
-import com.app.movie.entities.Client;
 import com.app.movie.entities.Movie;
-import com.app.movie.service.ClientService;
 import com.app.movie.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/movie")
 @CrossOrigin(origins = "*")
 public class MovieController {
+
     @Autowired
     MovieService service;
 
@@ -27,8 +28,13 @@ public class MovieController {
         return service.get();
     }
 
+    @GetMapping("/{id}")
+    public Optional<Movie> getById(@PathVariable("id") String id) {
+        return service.getById(id);
+    }
+
     @PostMapping("")
-    public ResponseEntity<ResponseDto> create(@RequestBody Movie request) {
+    public ResponseEntity<ResponseDto>  create(@RequestBody Movie request) {
         ResponseDto responseDto = service.create(request);
         ResponseEntity<ResponseDto> response = new ResponseEntity<>(responseDto,HttpStatus.CONFLICT);
 
@@ -50,4 +56,5 @@ public class MovieController {
     public void delete(@PathVariable("id") String id) {
         service.delete(id);
     }
+
 }

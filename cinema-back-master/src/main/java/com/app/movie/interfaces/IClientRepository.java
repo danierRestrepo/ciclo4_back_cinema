@@ -11,10 +11,10 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface IClientRepository extends MongoRepository<Client, String> {
-    @Query(value= "{name : ?0}") // SQL Equivalent : SELECT * FROM Movie select * from Movie where name=?
-    List<Client> getClientsByName(String name);
-
+    @Query(value= "{email : ?0}")
+    Optional<Client> findByEmail(String email);
 }

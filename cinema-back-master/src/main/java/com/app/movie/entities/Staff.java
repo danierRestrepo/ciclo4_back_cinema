@@ -22,4 +22,5 @@ public class Staff {
     private String name;
     private String lastName;
     private String rol;
+
 }

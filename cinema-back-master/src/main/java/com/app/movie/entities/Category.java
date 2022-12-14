@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
 @Document("category")
 @Getter @Setter
 @AllArgsConstructor
@@ -30,7 +29,6 @@ public class Category implements Serializable {
     private String id;
     private String name;
     private String description;
+    private Integer ageMinimum;
 
-    
-    
 }

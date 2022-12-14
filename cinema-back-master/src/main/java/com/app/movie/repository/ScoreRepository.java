@@ -25,10 +25,6 @@ public class ScoreRepository {
         return repository.findAll();
     }
 
-    public List<Score> getByMovieAndClient(String name, String email){
-        return repository.getScoresByMoviesAndClient(name, email);
-    }
-
     public Optional<Score> findById(String id){
         Optional<Score> response= repository.findById(id);
         return response;
