@@ -43,6 +43,12 @@ public class ClientController {
     }
 
     @PostMapping("")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Client create(@RequestBody Client request) {
+        return service.create(request);
+    }
+
+    /*@PostMapping("")
     //@ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ResponseDto> create(@RequestBody Client request) {
         ResponseDto responseDto = service.create(request);
@@ -53,7 +59,7 @@ public class ClientController {
         }
 
         return response;
-    }
+    }*/
 
     @PutMapping("")
     @ResponseStatus(HttpStatus.ACCEPTED)
