@@ -64,11 +64,12 @@ public class ClientService {
 
     }
 
-   /* public ResponseDto create(Client request) {
+  /* public Client create(Client request) {
 
+       request.setPassword(encrypt(request.getPassword()));
         ResponseDto response = new ResponseDto();
-        List<Client> clients = repository.getByName(request.getName());
-        if(clients.size()>0){
+        Optional<Client> clients = repository.findByEmail(request.getEmail());
+        if(clients.isPresent()){
             response.status=false;
             response.message=CLIENT_REGISTERED;
         }else{
@@ -76,9 +77,9 @@ public class ClientService {
             response.status=true;
             response.message=CLIENT_SUCCESS;
             response.id= request.getId();
+            return repository.save(request);
         }
-        return response;
-
+        return response.message=;
     }*/
 
     public Client update(Client client) {

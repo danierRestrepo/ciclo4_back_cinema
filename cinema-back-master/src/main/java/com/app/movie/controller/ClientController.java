@@ -42,16 +42,16 @@ public class ClientController {
         return service.getReport();
     }
 
-    @PostMapping("")
+   @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     public Client create(@RequestBody Client request) {
         return service.create(request);
     }
 
-    /*@PostMapping("")
+  /*  @PostMapping("")
     //@ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ResponseDto> create(@RequestBody Client request) {
-        ResponseDto responseDto = service.create(request);
+        ReportClientDto responseDto = service.create(request);
         ResponseEntity<ResponseDto> response = new ResponseEntity<>(responseDto,HttpStatus.CONFLICT);
 
         if(responseDto.status.booleanValue()==true){
