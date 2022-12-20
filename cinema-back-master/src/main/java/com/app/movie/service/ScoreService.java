@@ -15,8 +15,8 @@ import com.app.movie.repository.ScoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.List;
 
 
 @Service
@@ -39,6 +39,23 @@ public class ScoreService {
     public Iterable<Score> get() {
         Iterable<Score> response = repository.getAll();
         return response;
+    }
+
+    public Score check(String movieId,String authorization) {
+
+        Score score = new Score();
+        Optional<Movie> movie = movieRepository.findById(movieId);
+        Optional<Client> client = clientService.getByCredential(authorization);
+        if(movie.isPresent() && client.isPresent()){
+            //Iterable<Score> scores = repository.findByMovieAndClient(movie.get().getId(),client.get().getId());
+            Optional<Score> scores= repository.findById("6399cfadc9e9a77c999e8306");
+            score = scores.get();
+            /*if(scores.size()>0){
+                score = scores.get(scores.size()-1);
+            }*/
+        }
+
+        return score;
     }
 
     /*public ResponseDto create(Score request) {
@@ -83,15 +100,23 @@ public class ScoreService {
         return response;
     }
 
-    public Score update(Score score) {
-        Score scoreToUpdate = new Score();
+    public ResponseDto update(Score score,String scoreId) {
 
-        Optional<Score> currentScore = repository.findById(score.getId());
+        ResponseDto response = new ResponseDto();
+        Optional<Score> currentScore = repository.findById(scoreId);
         if (!currentScore.isEmpty()) {
-            scoreToUpdate = score;
-            scoreToUpdate=repository.save(scoreToUpdate);
+            Score scoreToUpdate = new Score();
+            scoreToUpdate = currentScore.get();
+            scoreToUpdate.setScore(score.getScore());
+            repository.save(scoreToUpdate);
+            response.status=true;
+            response.message="Se actualizó correctamente";
+            response.id=scoreId;
+        }else{
+            response.status=false;
+            response.message="No se logró la actualización";
         }
-        return scoreToUpdate;
+        return response;
     }
 
     public Boolean delete(String id) {

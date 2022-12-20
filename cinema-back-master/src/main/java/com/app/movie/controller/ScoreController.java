@@ -13,6 +13,7 @@ import com.app.movie.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import java.util.Map;
 
 import java.util.Map;
 
@@ -27,6 +28,11 @@ public class ScoreController {
     @GetMapping("")
     public Iterable<Score> get() {
         return service.get();
+    }
+
+    @GetMapping("/check/{movieId}")
+    public Score check(@PathVariable("movieId") String movieId,@RequestHeader(value="authorization") String authorization) {
+        return service.check(movieId,authorization);
     }
 
     @PostMapping("")
@@ -44,10 +50,10 @@ public class ScoreController {
         return service.create(request);
     }*/
 
-    @PutMapping("")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Score update(@RequestBody Score request) {
-        return service.update(request);
+    public ResponseDto update(@PathVariable("id") String id,@RequestBody Score request) {
+        return service.update(request,id);
     }
 
     @DeleteMapping("/{id}")
